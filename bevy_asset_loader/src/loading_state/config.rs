@@ -62,7 +62,7 @@ pub trait ConfigureLoadingState {
 }
 
 type SchedulConfig = ScheduleConfigs<
-    Box<(dyn bevy::prelude::System<In = (), Out = Result<(), BevyError>> + 'static)>,
+    Box<(dyn bevy::prelude::System<In = (), Out = ()> + 'static)>,
 >;
 
 /// Can be used to add new asset collections or similar configuration to a loading state.
