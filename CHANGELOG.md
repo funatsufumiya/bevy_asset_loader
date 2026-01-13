@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.25.0 - 13.01.2026
+
+- support for Bevy 0.18 (rc.2)
+
+## v0.24.0 - 02.10.2025
+
 - support for Bevy 0.17
 - depend on Bevy subcrates ([@benfrankel](https://github.com/benfrankel) in [#256](https://github.com/NiklasEi/bevy_asset_loader/pull/256))
 - removed some App extension methods that were deprecated in version 0.19

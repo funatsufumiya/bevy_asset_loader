@@ -8,10 +8,10 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .init_state::<MyStates>()
-        .insert_resource(AmbientLight {
-            brightness: 500.0,
-            ..default()
-        })
+        // .insert_resource(AmbientLight {
+        //     brightness: 500.0,
+        //     ..default()
+        // })
         .add_loading_state(
             LoadingState::new(MyStates::AssetLoading)
                 .continue_to_state(MyStates::Next)
@@ -46,6 +46,12 @@ fn draw(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
+    commands.spawn(
+        AmbientLight {
+            brightness: 500.0,
+            ..default()
+        }
+    );
     commands.spawn((
         Camera3d::default(),
         Transform::from_xyz(0.0, 1.5, 4.0).looking_at(Vec3::ZERO, -Vec3::Y),

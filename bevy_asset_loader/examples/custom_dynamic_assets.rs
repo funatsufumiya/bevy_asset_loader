@@ -14,10 +14,10 @@ fn main() {
         ))
         // We need to make sure that our dynamic asset collections can be loaded from the asset file
         .init_state::<MyStates>()
-        .insert_resource(AmbientLight {
-            brightness: 500.0,
-            ..default()
-        })
+        // .insert_resource(AmbientLight {
+        //     brightness: 500.0,
+        //     ..default()
+        // })
         .add_loading_state(
             LoadingState::new(MyStates::AssetLoading)
                 .continue_to_state(MyStates::Next)
@@ -30,6 +30,12 @@ fn main() {
 }
 
 fn render_stuff(mut commands: Commands, assets: Res<MyAssets>) {
+    commands.spawn(
+        AmbientLight {
+            brightness: 500.0,
+            ..default()
+        }
+    );
     commands.spawn((
         Camera3d::default(),
         Transform::from_xyz(-2.0, 2.5, 5.0).looking_at(Vec3::ZERO, Vec3::Y),
