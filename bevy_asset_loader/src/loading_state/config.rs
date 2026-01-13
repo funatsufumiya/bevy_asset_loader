@@ -10,12 +10,17 @@ use crate::loading_state::{
     InternalLoadingState, InternalLoadingStateSet, LoadingStateSchedule,
     OnEnterInternalLoadingState,
 };
-use bevy::app::App;
-use bevy::asset::Asset;
-use bevy::ecs::schedule::ScheduleConfigs;
-use bevy::platform::collections::HashMap;
-use bevy::prelude::{BevyError, FromWorld, IntoScheduleConfigs, Resource, default};
-use bevy::state::state::FreelyMutableState;
+use bevy_app::App;
+use bevy_asset::Asset;
+use bevy_ecs::system::BoxedSystem;
+use bevy_ecs::{
+    resource::Resource,
+    schedule::{IntoScheduleConfigs, ScheduleConfigs},
+    world::FromWorld,
+};
+use bevy_platform::collections::HashMap;
+use bevy_state::state::FreelyMutableState;
+use bevy_utils::default;
 use std::any::TypeId;
 
 /// Methods to configure a loading state
@@ -61,9 +66,7 @@ pub trait ConfigureLoadingState {
     fn init_resource<R: Resource + FromWorld>(self) -> Self;
 }
 
-type SchedulConfig = ScheduleConfigs<
-    Box<(dyn bevy::prelude::System<In = (), Out = ()> + 'static)>,
->;
+type ScheduleConfig = ScheduleConfigs<BoxedSystem>;
 
 /// Can be used to add new asset collections or similar configuration to a loading state.
 /// ```edition2021
@@ -104,10 +107,10 @@ type SchedulConfig = ScheduleConfigs<
 pub struct LoadingStateConfig<S: FreelyMutableState> {
     state: S,
 
-    on_enter_loading_assets: Vec<SchedulConfig>,
-    on_enter_loading_dynamic_asset_collections: Vec<SchedulConfig>,
-    on_update: Vec<SchedulConfig>,
-    on_enter_finalize: Vec<SchedulConfig>,
+    on_enter_loading_assets: Vec<ScheduleConfig>,
+    on_enter_loading_dynamic_asset_collections: Vec<ScheduleConfig>,
+    on_update: Vec<ScheduleConfig>,
+    on_enter_finalize: Vec<ScheduleConfig>,
 
     dynamic_assets: HashMap<TypeId, Vec<String>>,
 }

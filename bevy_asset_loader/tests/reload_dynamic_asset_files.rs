@@ -68,7 +68,7 @@ fn splash_countdown(
     time: Res<Time>,
     mut timer: ResMut<SplashTimer>,
 ) {
-    if timer.tick(time.delta()).finished() {
+    if timer.tick(time.delta()).is_finished() {
         game_state.set(MyStates::MainMenuAssetLoading);
     }
 }

@@ -45,8 +45,7 @@ fn expect(collection: Option<Res<AudioCollection>>, mut exit: MessageWriter<AppE
         let files = &collection.files;
         assert!(
             files.contains_key("audio/plop.ogg"),
-            "Expected path 'audio/plop.ogg' was not in {:?}",
-            files
+            "Expected path 'audio/plop.ogg' was not in {files:?}",
         );
         exit.write(AppExit::Success);
     }
